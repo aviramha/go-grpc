@@ -1,0 +1,33 @@
+# service yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookserver-svc
+spec:
+  selector:
+    app: bookserver
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+# deployment yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookserver-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookserver
+  template:
+    metadata:
+      labels:
+        app: bookserver
+    spec:
+      containers:
+        - name: bookserver
+          image: aviramhassan/testagent:gemmarpc-server-amd64
+          ports:
+            - containerPort: 8080

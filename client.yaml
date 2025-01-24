@@ -1,0 +1,20 @@
+# deployment yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookclient-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookclient
+  template:
+    metadata:
+      labels:
+        app: bookclient
+    spec:
+      containers:
+        - name: bookclient
+          image: aviramhassan/testagent:gemmarpc-client2-amd64
+          ports:
+            - containerPort: 8080
